@@ -118,7 +118,7 @@ def index():
             print("🔢 Encoded input:", input_encoded)
 
             output = model.predict(input_encoded)
-            predicted_class = int(np.argmax(output, axis=1)[0])
+            predicted_class = int(output[0])
             prediction = label_map[predicted_class]
 
             print("✅ Prediction complete in", time.time() - start_time, "seconds.")
