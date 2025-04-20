@@ -24,7 +24,7 @@ def get_model():
     global model
     if model is None:
         print("📦 Loading model...")
-        with open('model.pkl', 'rb') as f:
+        with open('rf.pkl', 'rb') as f:
             model = pickle.load(f)
     return model
 
