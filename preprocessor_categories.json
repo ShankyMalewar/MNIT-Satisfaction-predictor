@@ -1,0 +1,94 @@
+{
+  "What is your branch": [
+    "Architecture (B.Arch)",
+    "Artificial Intelligence (AI)",
+    "Chemical Engineering (CHE)",
+    "Civil Engineering (CE)",
+    "Computer Science and Engineering (CSE)",
+    "Electrical Engineering (EE)",
+    "Electronics and Communication Engineering (ECE)",
+    "Mechanical Engineering (ME)",
+    "Metallurgical and Materials Engineering (MME)"
+  ],
+  "Enjoyment of Coding & Logical Problem Solving": [
+    "Like it but Don\u2019t Practice Much",
+    "Love it & Practice Regularly",
+    "Neutral",
+    "Not Interested"
+  ],
+  "Interest in Multidisciplinary Learning (Beyond Your Branch)  ": [
+    "Love Exploring Other Fields",
+    "Occasionally Interested",
+    "Stick to My Own Branch"
+  ],
+  "How Often Do You Participate in Hackathons/Technical Competitions?  ": [
+    "Frequently",
+    "Never",
+    "Occasionally"
+  ],
+  "  Field of Interest ": [
+    "Non - Tech",
+    "Tech"
+  ],
+  "Interest in Entrepreneurship & Startups ": [
+    "Neutral",
+    "Not Interested",
+    "Somewhat Interested",
+    "Very Interested"
+  ],
+  "Interest in Government Jobs & Civil Services ": [
+    "Neutral",
+    "Not Interested",
+    "Somewhat Interested but No Preparation Yet",
+    "Very Interested and Preparing for it"
+  ],
+  "  Sports & Fitness Activity Level  ": [
+    "Not Interested in Sports",
+    "Occasionally Engage in Sports/Fitness",
+    "Regularly Play Sports/Go to Gym"
+  ],
+  "  Interest in Social Work & Volunteering  ": [
+    "Not Interested",
+    "Occasionally Participate",
+    "Regularly Involved"
+  ],
+  "Career Preferences & Future Plans  ": [
+    "Academic",
+    "Non-Academic Career Preference"
+  ],
+  "Preferred Study Environment": [
+    "Group Study",
+    "Learning via Online Courses & YouTube",
+    "Practical & Hands-On Learning",
+    "Self study"
+  ],
+  "  Do You Enjoy Living in a Hostel?  ": [
+    "Neutral",
+    "No",
+    "Yes"
+  ],
+  "What\u2019s Your Main Motivation for Attending College?": [
+    "Exploring New Opportunities",
+    "Getting a High-Paying Job",
+    "Learning & Academics",
+    "Making Friends & Enjoying Life"
+  ],
+  "Do you belong to the state where MNIT is located?": [
+    "No",
+    "Yes"
+  ],
+  "Do you enjoy city life": [
+    "No",
+    "Yes"
+  ],
+  "Satisfied with college Infrastructure": [
+    "no",
+    "yes"
+  ],
+  "Interest in Research field": [
+    "Neutral",
+    "Not Interested",
+    "Somewhat Interested",
+    "Very Interested"
+  ]
+}

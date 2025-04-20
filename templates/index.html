@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>MNIT Satisfaction Survey</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+  <style>
+    body {
+      background: radial-gradient(circle at top left, #1a0d1f, #0c0510);
+      color: #ffffff;
+      font-family: 'Poppins', sans-serif;
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 20px;
+    }
+  
+    .form-card {
+      background: rgba(26, 13, 31, 0.85);
+      border: 1px solid #ff2e88;
+      border-radius: 25px;
+      padding: 50px;
+      box-shadow: 0 0 25px rgba(255, 46, 136, 0.3), 0 0 60px rgba(217, 93, 255, 0.2);
+      max-width: 900px;
+      width: 100%;
+      animation: float 6s ease-in-out infinite;
+      backdrop-filter: blur(20px);
+    }
+  
+    @keyframes float {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-10px); }
+    }
+  
+    h1 {
+      text-align: center;
+      font-size: 2.9rem;
+      font-weight: 700;
+      background: linear-gradient(90deg, #ff2e88, #ff6f3c, #d95dff);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      margin-bottom: 60px;
+    }
+  
+    .question-card {
+      background: linear-gradient(90deg, #ff2e88, #ff6f3c, #d95dff);
+      padding: 1.5rem;
+      border-radius: 20px;
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      box-shadow: 0 0 10px rgba(217, 93, 255, 0.1);
+      margin-bottom: 1.5rem;
+      transition: 0.3s ease;
+    }
+  
+    .question-card:hover {
+      box-shadow: 0 0 25px rgba(255, 46, 136, 0.2);
+      transform: translateY(-5px);
+    }
+  
+    .question-label {
+      font-size: 1.8rem;
+      font-weight: 900;
+      color: #070707;
+      margin-bottom: 15px;
+    }
+  
+    .options-group {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+  
+    .option-pill {
+      display: inline-block;
+      cursor: pointer;
+      user-select: none;
+      margin: 5px;
+    }
+  
+    .option-pill input[type="radio"] {
+      display: none;
+    }
+  
+    .option-pill span {
+      display: inline-block;
+      padding: 10px 20px;
+      border-radius: 999px;
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid #060506;
+      color: #0b0a0a;
+      transition: all 0.3s ease;
+      box-shadow: 0 0 5px rgba(255, 111, 60, 0.3);
+    }
+  
+    .option-pill:hover span {
+      background: rgba(255, 46, 136, 0.1);
+      border-color: #ff2e88;
+      transform: scale(1.05);
+    }
+  
+    .option-pill input[type="radio"]:checked + span {
+      background: linear-gradient(90deg, #0f0f0f, #101010, #070607);
+      color: #fff;
+      font-weight: bold;
+      border: none;
+      box-shadow:
+        0 0 6px rgba(255, 46, 136, 0.5),
+        0 0 15px rgba(255, 111, 60, 0.4),
+        0 0 25px rgba(217, 93, 255, 0.4);
+      transform: scale(1.05);
+    }
+  
+    .btn-primary {
+      background: linear-gradient(to right, #ff2e88, #ff6f3c, #d95dff);
+      border: none;
+      border-radius: 30px;
+      padding: 12px 40px;
+      font-size: 1rem;
+      font-weight: bold;
+      box-shadow: 0 0 20px rgba(255, 46, 136, 0.3);
+      color: white;
+      transition: all 0.3s ease-in-out;
+    }
+  
+    .btn-primary:hover {
+      transform: scale(1.07);
+      box-shadow: 0 0 30px rgba(255, 46, 136, 0.6);
+    }
+  
+    .result {
+      margin-top: 25px;
+      font-size: 1.4rem;
+      font-weight: bold;
+      color: #ff9bd2;
+      text-shadow: 0 0 5px rgba(255, 46, 136, 0.6);
+    }
+    .ts{
+      font-size: 2.3rem;
+      font-weight: bold;
+      background: linear-gradient(90deg, #ff2e88, #ff6f3c, #d95dff);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+
+    }
+  
+    @media (max-width: 768px) {
+      .form-card {
+        padding: 30px 20px;
+      }
+  
+      h1 {
+        font-size: 2rem;
+
+      }
+    }
+  </style>
+  
+  
+  
+</head>
+<body>
+  <div class="container my-5">
+    <div class="form-card mx-auto" style="max-width: 800px;">
+      <h1 class="text-center">MNIT Satisfaction Survey</h1>
+      {% if prediction %}
+        <p class="text-center result mt-3">Predicted Satisfaction Level: <span class="ts">{{ prediction }}</span></p>
+        {% endif %}
+      <form method="POST">
+        {% for label, name, options in [
+          ('Which branch you are getting in MNIT? 🧐', 'branch', ['Architecture (B.Arch)', 'Artificial Intelligence (AI)', 'Chemical Engineering (CHE)', 'Civil Engineering (CE)', 'Computer Science and Engineering (CSE)', 'Electrical Engineering (EE)', 'Electronics and Communication Engineering (ECE)', 'Mechanical Engineering (ME)', 'Metallurgical and Materials Engineering (MME)']),
+          ('Do you enjoy Coding? 👨‍💻', 'coding', ['Like it but Don\'t Practice Much', 'Love it & Practice Regularly', 'Neutral', 'Not Interested']),
+          ('Interest in Multidisciplinary Learning (Beyond Your Branch) 🤩', 'multidisciplinary', ['Love Exploring Other Fields', 'Occasionally Interested', 'Stick to My Own Branch']),
+          ('How Often would you like to Participate in Hackathons/Technical Competitions?', 'hackathons', ['Frequently', 'Never', 'Occasionally']),
+          ('Field of Interest', 'field_interest', ['Non - Tech', 'Tech']),
+          ('Interest in Entrepreneurship & Startups 📈', 'entrepreneurship', ['Neutral', 'Not Interested', 'Somewhat Interested', 'Very Interested']),
+          ('Interest in Government Jobs & Civil Services 💼', 'govt_jobs', ['Neutral', 'Not Interested', 'Somewhat Interested but No Preparation Yet', 'Very Interested and Preparing for it']),
+          ('Sports & Fitness Activity Level 🏏', 'sports', ['Not Interested in Sports', 'Occasionally Engage in Sports/Fitness', 'Regularly Play Sports/Go to Gym']),
+          ('Interest in Social Work & Volunteering', 'social_work', ['Not Interested', 'Occasionally Participate', 'Regularly Involved']),
+          ('Career Preferences & Future Plans', 'career_plan', ['Academic', 'Non-Academic Career Preference']),
+          ('Preferred Study Environment', 'study_env', ['Group Study', 'Learning via Online Courses & YouTube', 'Practical & Hands-On Learning', 'Self study']),
+          ('Will you enjoy living in hostel? 🏨', 'hostel', ['Neutral', 'No', 'Yes']),
+          ('What\'s Your Main Motivation for Attending College? 🎓', 'motivation', ['Exploring New Opportunities', 'Getting a High-Paying Job', 'Learning & Academics', 'Making Friends & Enjoying Life']),
+          ('Do you belong to the state where MNIT is located? 🛣️', 'native_state', ['No', 'Yes']),
+          ('Do you like Pink city? 🩷', 'city_life', ['No', 'Yes']),
+          ('Satisfied with college Infrastructure 🏤', 'infra', ['no', 'yes']),
+          ('Interest in Research field', 'research', ['Neutral', 'Not Interested', 'Somewhat Interested', 'Very Interested'])
+        ] %}
+        
+        <div class="question-card mb-4">
+          <label class="question-label">{{ label }}</label>
+          <div class="options-group">
+            {% for option in options %}
+            <label class="option-pill">
+              <input type="radio" name="{{ name }}" value="{{ option }}" required>
+              <span>{{ option }}</span>
+            </label>
+            {% endfor %}
+          </div>
+        </div>
+        
+        {% endfor %}
+        
+        <div class="text-center mt-4">
+          <button type="submit" class="btn btn-primary px-4">Predict Satisfaction</button>
+        </div>
+        
+        
+      </form>
+    </div>
+  </div>
+</body>
+
+</html>
+
+
+
