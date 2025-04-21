@@ -16,7 +16,7 @@
       align-items: center;
       padding: 20px;
     }
-  
+
     .form-card {
       background: rgba(26, 13, 31, 0.85);
       border: 1px solid #ff2e88;
@@ -28,12 +28,12 @@
       animation: float 6s ease-in-out infinite;
       backdrop-filter: blur(20px);
     }
-  
+
     @keyframes float {
       0%, 100% { transform: translateY(0); }
       50% { transform: translateY(-10px); }
     }
-  
+
     h1 {
       text-align: center;
       font-size: 2.9rem;
@@ -43,7 +43,7 @@
       -webkit-text-fill-color: transparent;
       margin-bottom: 60px;
     }
-  
+
     .question-card {
       background: linear-gradient(90deg, #ff2e88, #ff6f3c, #d95dff);
       padding: 1.5rem;
@@ -53,36 +53,36 @@
       margin-bottom: 1.5rem;
       transition: 0.3s ease;
     }
-  
+
     .question-card:hover {
       box-shadow: 0 0 25px rgba(255, 46, 136, 0.2);
       transform: translateY(-5px);
     }
-  
+
     .question-label {
       font-size: 1.8rem;
       font-weight: 900;
       color: #070707;
       margin-bottom: 15px;
     }
-  
+
     .options-group {
       display: flex;
       flex-wrap: wrap;
       gap: 12px;
     }
-  
+
     .option-pill {
       display: inline-block;
       cursor: pointer;
       user-select: none;
       margin: 5px;
     }
-  
+
     .option-pill input[type="radio"] {
       display: none;
     }
-  
+
     .option-pill span {
       display: inline-block;
       padding: 10px 20px;
@@ -93,13 +93,13 @@
       transition: all 0.3s ease;
       box-shadow: 0 0 5px rgba(255, 111, 60, 0.3);
     }
-  
+
     .option-pill:hover span {
       background: rgba(255, 46, 136, 0.1);
       border-color: #ff2e88;
       transform: scale(1.05);
     }
-  
+
     .option-pill input[type="radio"]:checked + span {
       background: linear-gradient(90deg, #0f0f0f, #101010, #070607);
       color: #fff;
@@ -111,7 +111,7 @@
         0 0 25px rgba(217, 93, 255, 0.4);
       transform: scale(1.05);
     }
-  
+
     .btn-primary {
       background: linear-gradient(to right, #ff2e88, #ff6f3c, #d95dff);
       border: none;
@@ -122,13 +122,32 @@
       box-shadow: 0 0 20px rgba(255, 46, 136, 0.3);
       color: white;
       transition: all 0.3s ease-in-out;
+      position: relative;
     }
-  
-    .btn-primary:hover {
-      transform: scale(1.07);
-      box-shadow: 0 0 30px rgba(255, 46, 136, 0.6);
+
+    .btn-primary.loading {
+      pointer-events: none;
+      opacity: 0.7;
     }
-  
+
+    .btn-primary.loading::after {
+      content: "";
+      position: absolute;
+      right: 15px;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 18px;
+      height: 18px;
+      border: 3px solid #fff;
+      border-top: 3px solid transparent;
+      border-radius: 50%;
+      animation: spin 0.8s linear infinite;
+    }
+
+    @keyframes spin {
+      to { transform: translateY(-50%) rotate(360deg); }
+    }
+
     .result {
       margin-top: 25px;
       font-size: 1.4rem;
@@ -136,29 +155,52 @@
       color: #ff9bd2;
       text-shadow: 0 0 5px rgba(255, 46, 136, 0.6);
     }
-    .ts{
+
+    .ts {
       font-size: 2.3rem;
       font-weight: bold;
       background: linear-gradient(90deg, #ff2e88, #ff6f3c, #d95dff);
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
-
     }
-  
+
     @media (max-width: 768px) {
       .form-card {
         padding: 30px 20px;
       }
-  
+
       h1 {
         font-size: 2rem;
-
       }
     }
   </style>
-  
-  
-  
+
+  <script>
+    document.addEventListener("DOMContentLoaded", () => {
+      const form = document.querySelector("form");
+      const submitBtn = form.querySelector("button[type='submit']");
+
+      // Show spinner when form is submitted
+      form.addEventListener("submit", () => {
+        submitBtn.classList.add("loading");
+      });
+
+      // Deselect radio button on second click
+      let lastChecked = {};
+
+      document.body.addEventListener("click", function (e) {
+        if (e.target.tagName === "INPUT" && e.target.type === "radio") {
+          const name = e.target.name;
+          if (lastChecked[name] === e.target) {
+            e.target.checked = false;
+            lastChecked[name] = null;
+          } else {
+            lastChecked[name] = e.target;
+          }
+        }
+      });
+    });
+  </script>
 </head>
 <body>
   <div class="container my-5">
@@ -166,7 +208,7 @@
       <h1 class="text-center">MNIT Satisfaction Survey</h1>
       {% if prediction %}
         <p class="text-center result mt-3">Predicted Satisfaction Level: <span class="ts">{{ prediction }}</span></p>
-        {% endif %}
+      {% endif %}
       <form method="POST">
         {% for label, name, options in [
           ('Which branch you are getting in MNIT? 🧐', 'branch', ['Architecture (B.Arch)', 'Artificial Intelligence (AI)', 'Chemical Engineering (CHE)', 'Civil Engineering (CE)', 'Computer Science and Engineering (CSE)', 'Electrical Engineering (EE)', 'Electronics and Communication Engineering (ECE)', 'Mechanical Engineering (ME)', 'Metallurgical and Materials Engineering (MME)']),
@@ -187,7 +229,6 @@
           ('Satisfied with college Infrastructure 🏤', 'infra', ['no', 'yes']),
           ('Interest in Research field', 'research', ['Neutral', 'Not Interested', 'Somewhat Interested', 'Very Interested'])
         ] %}
-        
         <div class="question-card mb-4" style="margin-left: 7rem; margin-right: 7rem; margin-bottom: 4rem;">
           <label class="question-label">{{ label }}</label>
           <div class="options-group">
@@ -199,20 +240,53 @@
             {% endfor %}
           </div>
         </div>
-        
         {% endfor %}
-        
         <div class="text-center mt-4">
           <button type="submit" class="btn btn-primary px-4">Predict Satisfaction</button>
         </div>
-        
-        
       </form>
     </div>
   </div>
+  <!-- Confetti script -->
+<script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+<script>
+  document.addEventListener("DOMContentLoaded", () => {
+    const form = document.querySelector("form");
+    const submitBtn = form.querySelector("button[type='submit']");
+
+    // Spinner on submit
+    form.addEventListener("submit", () => {
+      submitBtn.classList.add("loading");
+    });
+
+    // Deselect radio on second click
+    let lastChecked = {};
+    document.body.addEventListener("click", function (e) {
+      if (e.target.tagName === "INPUT" && e.target.type === "radio") {
+        const name = e.target.name;
+        if (lastChecked[name] === e.target) {
+          e.target.checked = false;
+          lastChecked[name] = null;
+        } else {
+          lastChecked[name] = e.target;
+        }
+      }
+    });
+
+    // 🎉 Confetti on prediction result
+    const resultEl = document.querySelector(".result");
+    if (resultEl) {
+      setTimeout(() => {
+        confetti({
+          particleCount: 200,
+          spread: 70,
+          origin: { y: 0.6 },
+          zIndex: 9999
+        });
+      }, 500);
+    }
+  });
+</script>
+
 </body>
-
 </html>
-
-
-
